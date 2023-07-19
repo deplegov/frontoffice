@@ -8,32 +8,24 @@ import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
 
 // Material Kit 2 React examples
-import DefaultNavbar from "examples/Navbars/DefaultNavbar";
+// import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import DefaultFooter from "examples/Footers/DefaultFooter";
 
 // Presentation page sections
 import DesignBlocks from "pages/Presentation/sections/DesignBlocks";
 
 // Routes
-import headerDropdown from "headerDropdown";
+// import headerDropdown from "headerDropdown";
 import footerRoutes from "footer.routes";
 
 // Images
 import bgImage from "assets/images/bg-presentation.jpg";
+import NavBarInitialDefault from "components/NavBarInitialDefault";
 
 function Presentation() {
   return (
     <>
-      <DefaultNavbar
-        routes={headerDropdown}
-        action={{
-          type: "internal",
-          route: "/Account",
-          label: "Mon compte",
-          color: "info",
-        }}
-        sticky
-      />
+      <NavBarInitialDefault />
       <MKBox
         minHeight="75vh"
         width="100%"

@@ -99,31 +99,58 @@ function SignUpBasic() {
                 <MKTypography variant="h4" fontWeight="medium" color="white" mt={1}>
                   Inscription
                 </MKTypography>
-                {/* <Grid container spacing={3} justifyContent="center" sx={{ mt: 1, mb: 2 }}>
-                  <Grid item xs={2}>
-                    <MKTypography component={MuiLink} href="#" variant="body1" color="white">
-                      <FacebookIcon color="inherit" />
-                    </MKTypography>
-                  </Grid>
-                  <Grid item xs={2}>
-                    <MKTypography component={MuiLink} href="#" variant="body1" color="white">
-                      <GitHubIcon color="inherit" />
-                    </MKTypography>
-                  </Grid>
-                  <Grid item xs={2}>
-                    <MKTypography component={MuiLink} href="#" variant="body1" color="white">
-                      <GoogleIcon color="inherit" />
-                    </MKTypography>
-                  </Grid>
-                </Grid> */}
               </MKBox>
               <MKBox pt={4} pb={3} px={3}>
                 <MKBox component="form" role="form">
+                  <MKBox mb={2} style={{ display: "flex", gap: "10px" }}>
+                    <MKInput type="text" label="Nom" />
+                    <MKInput type="text" label="Prénom" />
+                  </MKBox>
+
                   <MKBox mb={2}>
-                    <MKInput type="text" label="Nom" fullWidth />
+                    <MKInput
+                      variant="standard"
+                      label="Date de naissance"
+                      InputLabelProps={{ shrink: true }}
+                      type="date"
+                      fullWidth
+                    />
+                  </MKBox>
+                  <MKBox
+                    mb={2}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "20%",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <label style={{ display: "flex", alignItems: "center" }}>
+                      <MKInput type="radio" name="gender" />
+                      <span style={{ marginLeft: "5px", fontSize: "14px", opacity: "7.1" }}>
+                        Homme
+                      </span>
+                    </label>
+                    <label style={{ display: "flex", alignItems: "center" }}>
+                      <MKInput type="radio" name="gender" />
+                      <span style={{ marginLeft: "5px", fontSize: "14px", opacity: "7.1" }}>
+                        Femme
+                      </span>
+                    </label>
+                  </MKBox>
+                  <MKBox mb={2} style={{ display: "flex", gap: "10px" }}>
+                    <MKInput type="text" label="Adresse" />
+                    <MKInput type="number" label="Code postal" />
+                  </MKBox>
+                  <MKBox mb={2} style={{ display: "flex", gap: "10px" }}>
+                    <MKInput type="email" label="Email" />
+                    <MKInput type="number" label="Numero de téléphone" />
                   </MKBox>
                   <MKBox mb={2}>
-                    <MKInput type="password" label="Password" fullWidth />
+                    <MKInput type="text" label="Nom d'utilisateur" fullWidth />
+                  </MKBox>
+                  <MKBox mb={2}>
+                    <MKInput type="password" label="Mot de passe" fullWidth />
                   </MKBox>
                   <MKBox mt={4} mb={1}>
                     <MKButton variant="gradient" color="info" fullWidth>
