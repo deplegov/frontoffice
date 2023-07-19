@@ -7,6 +7,7 @@ import TermsOfUs from "pages/TermsOfUs";
 import PrivacyPolicy from "pages/PrivacyTerms";
 import Submission from "pages/CallForRenders/Submission";
 import Profile from "pages/Account/Profile";
+import PageDetail from "pages/Details/PageDetail";
 
 const routes = [
   {
@@ -54,6 +55,11 @@ const routes = [
     name: "Profile",
     route: "/pages/Account/Profile",
     component: <Profile />,
+  },
+  {
+    name: "Page Details",
+    route: "/pages/Details/PageDetail",
+    component: <PageDetail />,
   },
 ];
 
