@@ -3,7 +3,9 @@ import AboutUs from "layouts/pages/landing-pages/about-us";
 import ContactUs from "layouts/pages/landing-pages/contact-us";
 import SignIn from "layouts/pages/authentication/sign-in";
 import SignUp from "layouts/pages/authentication/sign-up";
-import Terms from "pages/Terms/Terms";
+import TermsOfUs from "pages/TermsOfUs";
+import PrivacyPolicy from "pages/PrivacyTerms";
+import Submission from "pages/CallForRenders/Submission";
 
 const routes = [
   {
@@ -33,9 +35,19 @@ const routes = [
     component: <SignUp />,
   },
   {
-    name: "terms",
-    route: "/pages/Terms/Terms",
-    component: <Terms />,
+    name: "PrivacyPolicy",
+    route: "/pages/PrivacyTerms",
+    component: <PrivacyPolicy />,
+  },
+  {
+    name: "TermsOfUs",
+    route: "/pages/TermsOfUs",
+    component: <TermsOfUs />,
+  },
+  {
+    name: "Submission offer",
+    route: "/pages/CallForRenders/Submission",
+    component: <Submission />,
   },
 ];
 

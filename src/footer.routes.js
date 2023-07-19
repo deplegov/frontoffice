@@ -30,8 +30,12 @@ export default {
       name: "legal",
       items: [
         {
-          name: " Politique de confidentialité et condition d'utilisation",
-          route: "/pages/LandingPages/Terms",
+          name: " Politique de confidentialité",
+          route: "/pages/PrivacyTerms",
+        },
+        {
+          name: "Condition d'utilisation",
+          route: "/pages/TermsOfUs",
         },
       ],
     },

@@ -1,5 +1,6 @@
 // @mui material components
 import Icon from "@mui/material/Icon";
+import Submission from "pages/CallForRenders/Submission";
 
 // Pages
 import AboutUs from "pages/LandingPages/AboutUs";
@@ -21,6 +22,11 @@ const headerDropdown = [
             name: "Appels d'offre",
             route: "/pages/LandingPages/AboutUs",
             component: <AboutUs />,
+          },
+          {
+            name: "Soumission appel d'offre",
+            route: "/pages/CallForRenders/Submission",
+            component: <Submission />,
           },
         ],
       },
