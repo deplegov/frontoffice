@@ -8,7 +8,7 @@ function NavBarInitialDefault() {
         routes={headerDropdown}
         action={{
           type: "internal",
-          route: "/Account",
+          route: "/pages/Account/Profile",
           label: "Mon compte",
           color: "info",
         }}

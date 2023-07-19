@@ -56,7 +56,7 @@ function SignUpBasic() {
         routes={headerDropdown}
         action={{
           type: "internal",
-          route: "https://www.creative-tim.com/product/material-kit-react",
+          route: "/pages/Account/Profile",
           label: "Mon compte",
           color: "info",
         }}

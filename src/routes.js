@@ -6,6 +6,7 @@ import SignUp from "layouts/pages/authentication/sign-up";
 import TermsOfUs from "pages/TermsOfUs";
 import PrivacyPolicy from "pages/PrivacyTerms";
 import Submission from "pages/CallForRenders/Submission";
+import Profile from "pages/Account/Profile";
 
 const routes = [
   {
@@ -48,6 +49,11 @@ const routes = [
     name: "Submission offer",
     route: "/pages/CallForRenders/Submission",
     component: <Submission />,
+  },
+  {
+    name: "Profile",
+    route: "/pages/Account/Profile",
+    component: <Profile />,
   },
 ];
 
