@@ -9,6 +9,7 @@ import Submission from "pages/CallForTenders/Submission";
 import Profile from "pages/Account/Profile";
 import PageDetail from "pages/Details/PageDetail";
 import CallForTenders from "pages/CallForTenders/page";
+import PageDetailCallForTenders from "pages/Details/PageDetailCallForTenders";
 
 const routes = [
   {
@@ -69,8 +70,8 @@ const routes = [
   },
   {
     name: "Details page call for tenders",
-    route: "/pages/Details/PageDetail",
-    component: <PageDetail />,
+    route: "/pages/Details/PageDetailCallForTenders",
+    component: <PageDetailCallForTenders />,
   },
 ];
 
