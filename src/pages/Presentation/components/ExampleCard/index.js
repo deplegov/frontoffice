@@ -98,7 +98,7 @@ function ExampleCard({ image, name, page, detail, profile, pro, ...rest }) {
               )}
             </>
           ) : (
-            page === "CallRender" && (
+            page === "CallTender" && (
               <>
                 {detail && (
                   <MKTypography variant="button" fontWeight="regular" color="secondary">

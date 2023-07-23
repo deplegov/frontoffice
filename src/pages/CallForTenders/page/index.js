@@ -23,7 +23,7 @@ import footerRoutes from "footer.routes";
 import bgImage from "assets/images/bg-presentation.jpg";
 import NavBarInitialDefault from "components/NavBarInitialDefault";
 
-function CallForRenders() {
+function CallForTenders() {
   return (
     <>
       <NavBarInitialDefault />
@@ -67,7 +67,7 @@ function CallForRenders() {
           boxShadow: ({ boxShadows: { xxl } }) => xxl,
         }}
       >
-        <DesignBlocks data={data} page="CallRender" />
+        <DesignBlocks data={data} page="CallTender" />
       </Card>
       <MKBox pt={6} px={1} mt={6}>
         <DefaultFooter content={footerRoutes} />
@@ -76,4 +76,4 @@ function CallForRenders() {
   );
 }
 
-export default CallForRenders;
+export default CallForTenders;

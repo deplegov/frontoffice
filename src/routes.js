@@ -5,10 +5,10 @@ import SignIn from "layouts/pages/authentication/sign-in";
 import SignUp from "layouts/pages/authentication/sign-up";
 import TermsOfUs from "pages/TermsOfUs";
 import PrivacyPolicy from "pages/PrivacyTerms";
-import Submission from "pages/CallForRenders/Submission";
+import Submission from "pages/CallForTenders/Submission";
 import Profile from "pages/Account/Profile";
 import PageDetail from "pages/Details/PageDetail";
-import CallForRenders from "pages/CallForRenders/page";
+import CallForTenders from "pages/CallForTenders/page";
 
 const routes = [
   {
@@ -49,13 +49,13 @@ const routes = [
   },
   {
     name: "Submission offer",
-    route: "/pages/CallForRenders/Submission",
+    route: "/pages/CallForTenders/Submission",
     component: <Submission />,
   },
   {
     name: "Call for tender",
-    route: "/pages/CallForRenders/page",
-    component: <CallForRenders />,
+    route: "/pages/CallForTenders/page",
+    component: <CallForTenders />,
   },
   {
     name: "Profile",
@@ -63,7 +63,12 @@ const routes = [
     component: <Profile />,
   },
   {
-    name: "Page Details",
+    name: "Details page",
+    route: "/pages/Details/PageDetail",
+    component: <PageDetail />,
+  },
+  {
+    name: "Details page call for tenders",
     route: "/pages/Details/PageDetail",
     component: <PageDetail />,
   },
