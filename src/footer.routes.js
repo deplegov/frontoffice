@@ -20,7 +20,7 @@ export default {
     },
     {
       name: "resources",
-      items: [{ name: "Appels d'offre", route: "/pages/LandingPages/AboutUs" }],
+      items: [{ name: "Appels d'offre", route: "/pages/CallForTenders/page" }],
     },
     {
       name: "help & support",
@@ -45,7 +45,7 @@ export default {
       All rights reserved. Copyright &copy; {date} by{" "}
       <MKTypography
         component="a"
-        href="https://www.creative-tim.com"
+        // href="https://www.creative-tim.com"
         target="_blank"
         rel="noreferrer"
         variant="button"
