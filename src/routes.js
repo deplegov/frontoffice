@@ -10,6 +10,8 @@ import Profile from "pages/Account/Profile";
 import PageDetail from "pages/Details/PageDetail";
 import CallForTenders from "pages/CallForTenders/page";
 import PageDetailCallForTenders from "pages/Details/PageDetailCallForTenders";
+import Parameter from "pages/Account/Parameter";
+import UpdateInformation from "pages/Account/UpdateInformation";
 
 const routes = [
   {
@@ -72,6 +74,16 @@ const routes = [
     name: "Details page call for tenders",
     route: "/pages/Details/PageDetailCallForTenders",
     component: <PageDetailCallForTenders />,
+  },
+  {
+    name: "Parameter",
+    route: "/pages/Account/Parameter",
+    component: <Parameter />,
+  },
+  {
+    name: "Update informations",
+    route: "/pages/Account/UpdateInformation",
+    component: <UpdateInformation />,
   },
 ];
 

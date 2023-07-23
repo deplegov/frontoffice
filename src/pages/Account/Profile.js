@@ -29,21 +29,11 @@ import footerRoutes from "footer.routes";
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import headerDropdown from "headerDropdown";
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
+import { Link } from "react-router-dom";
 
 function Profile() {
   return (
     <>
-      <DefaultNavbar
-        routes={headerDropdown}
-        action={{
-          type: "internal",
-          route: "/pages/Account/Profile",
-          label: "Mon compte",
-          color: "info",
-        }}
-        transparent
-        light
-      />
       <MKBox
         position="absolute"
         top={0}
@@ -63,6 +53,17 @@ function Profile() {
         }}
       />
       <MKBox px={1} width="100%" height="100vh" mx="auto" position="relative" zIndex={10}>
+        <DefaultNavbar
+          routes={headerDropdown}
+          action={{
+            type: "internal",
+            route: "/pages/Account/Profile",
+            label: "Mon compte",
+            color: "info",
+          }}
+          transparent
+          light
+        />
         <Grid container spacing={1} justifyContent="center" alignItems="center" height="100%">
           <MKBox mt={{ xs: 10, md: 10 }} textAlign="center">
             <MKAvatar src={profilePicture} alt="Burce Mars" size="xxl" shadow="xl" />
@@ -71,9 +72,14 @@ function Profile() {
             <Grid item xs={12} md={7} mx={{ xs: "auto", sm: 6, md: 1 }}>
               <MKBox display="flex" justifyContent="space-between" alignItems="center" mb={1}>
                 <MKTypography variant="h3">Nom d&apos;utilisateur</MKTypography>
-                <MKButton variant="outlined" color="info" size="small">
-                  Paramètre
-                </MKButton>
+                <MKBox mx="auto" my={3} textAlign="center">
+                  {/* Link with redirection */}
+                  <Link to="/pages/Account/Parameter">
+                    <MKButton variant="outlined" color="info" size="small">
+                      Paramètre
+                    </MKButton>
+                  </Link>
+                </MKBox>
               </MKBox>
               <Grid container spacing={3} mb={3}>
                 <Grid item>
