@@ -23,7 +23,7 @@ import PropTypes from "prop-types";
 import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
 
-function ExampleCard({ image, name, detail, pro, ...rest }) {
+function ExampleCard({ image, name, page, detail, profile, pro, ...rest }) {
   const imageTemplate = (
     <MKBox
       bgColor="white"
@@ -79,7 +79,6 @@ function ExampleCard({ image, name, detail, pro, ...rest }) {
       />
     </MKBox>
   );
-
   return (
     <MKBox position="relative">
       {image && <>{imageTemplate}</>}
@@ -90,10 +89,56 @@ function ExampleCard({ image, name, detail, pro, ...rest }) {
               {name}
             </MKTypography>
           )}
-          {detail && (
-            <MKTypography variant="button" fontWeight="regular" color="secondary">
-              {detail}
-            </MKTypography>
+          {page === "Home" ? (
+            <>
+              {detail && (
+                <MKTypography variant="button" fontWeight="regular" color="secondary">
+                  {detail}
+                </MKTypography>
+              )}
+            </>
+          ) : (
+            page === "CallRender" && (
+              <>
+                {detail && (
+                  <MKTypography variant="button" fontWeight="regular" color="secondary">
+                    <h3 style={{ color: "green" }}>{detail}</h3>
+                  </MKTypography>
+                )}
+                {profile && profile.length > 0 && (
+                  <>
+                    <MKTypography variant="button" fontWeight="regular" color="secondary">
+                      <h3>Profile</h3>
+                    </MKTypography>
+                    <MKTypography variant="button" fontWeight="regular" color="secondary">
+                      <ul>
+                        {profile.map((_profil, index) => (
+                          <li key={index}>
+                            <h5>{_profil}</h5>
+                          </li>
+                        ))}
+                      </ul>
+                    </MKTypography>
+                  </>
+                )}
+                {/* {mission && mission.length > 0 && (
+                  <>
+                    <MKTypography variant="button" fontWeight="regular" color="secondary">
+                      <h3>Mission</h3>
+                    </MKTypography>{" "}
+                    <MKTypography variant="button" fontWeight="regular" color="secondary">
+                      <ul>
+                        {mission.map((_mission, index) => (
+                          <li key={index}>
+                            <h5>{_mission}</h5>
+                          </li>
+                        ))}
+                      </ul>
+                    </MKTypography>
+                  </>
+                )} */}
+              </>
+            )
           )}
         </MKBox>
       ) : null}
@@ -112,7 +157,10 @@ ExampleCard.defaultProps = {
 ExampleCard.propTypes = {
   image: PropTypes.string,
   name: PropTypes.string,
+  page: PropTypes.string,
   detail: PropTypes.string,
+  // mission: PropTypes.array,
+  profile: PropTypes.array,
   pro: PropTypes.bool,
 };
 

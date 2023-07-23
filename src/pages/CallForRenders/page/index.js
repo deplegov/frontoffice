@@ -13,7 +13,7 @@ import DefaultFooter from "examples/Footers/DefaultFooter";
 
 // Presentation page sections
 import DesignBlocks from "pages/Presentation/sections/DesignBlocks";
-import data from "pages/Presentation/sections/data/designBlocksData";
+import data from "../page/data";
 
 // Routes
 // import headerDropdown from "headerDropdown";
@@ -23,7 +23,7 @@ import footerRoutes from "footer.routes";
 import bgImage from "assets/images/bg-presentation.jpg";
 import NavBarInitialDefault from "components/NavBarInitialDefault";
 
-function Presentation() {
+function CallForRenders() {
   return (
     <>
       <NavBarInitialDefault />
@@ -51,16 +51,7 @@ function Presentation() {
                 },
               })}
             >
-              E - Gouvernance{" "}
-            </MKTypography>
-            <MKTypography
-              variant="body1"
-              color="white"
-              textAlign="center"
-              px={{ xs: 6, lg: 12 }}
-              mt={1}
-            >
-              Actualités &amp; projets du gouvernement et appels d&apos;offre publique
+              Appels d&apos;offre
             </MKTypography>
           </Grid>
         </Container>
@@ -76,7 +67,7 @@ function Presentation() {
           boxShadow: ({ boxShadows: { xxl } }) => xxl,
         }}
       >
-        <DesignBlocks data={data} page="Home" />
+        <DesignBlocks data={data} page="CallRender" />
       </Card>
       <MKBox pt={6} px={1} mt={6}>
         <DefaultFooter content={footerRoutes} />
@@ -85,4 +76,4 @@ function Presentation() {
   );
 }
 
-export default Presentation;
+export default CallForRenders;

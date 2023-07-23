@@ -35,7 +35,7 @@ function Pages() {
   const renderData = data.map(({ image, name, route }) => (
     <Grid item xs={12} md={6} sx={{ mb: { xs: 3, lg: 0 } }} key={name}>
       <Link to={route}>
-        <ExampleCard image={image} name={name} display="grid" minHeight="auto" />
+        <ExampleCard image={image}  name={name} display="grid" minHeight="auto" />
       </Link>
     </Grid>
   ));

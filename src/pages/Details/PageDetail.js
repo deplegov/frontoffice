@@ -8,6 +8,11 @@ import DefaultFooter from "examples/Footers/DefaultFooter";
 import footerRoutes from "footer.routes";
 import MKPagination from "components/MKPagination";
 import { Icon } from "@mui/material";
+import PropTypes from "prop-types";
+
+PageDetail.propTypes = {
+  page: PropTypes.string,
+};
 
 export default function PageDetail() {
   return (

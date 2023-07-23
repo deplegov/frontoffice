@@ -1,6 +1,7 @@
 // @mui material components
 import Icon from "@mui/material/Icon";
 import Submission from "pages/CallForRenders/Submission";
+import CallForRenders from "pages/CallForRenders/page";
 
 // Pages
 import AboutUs from "pages/LandingPages/AboutUs";
@@ -20,8 +21,8 @@ const headerDropdown = [
         collapse: [
           {
             name: "Appels d'offre",
-            route: "/pages/LandingPages/AboutUs",
-            component: <AboutUs />,
+            route: "/pages/CallForRenders/page",
+            component: <CallForRenders />,
           },
           {
             name: "Soumission appel d'offre",

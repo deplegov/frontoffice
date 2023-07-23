@@ -8,6 +8,7 @@ import PrivacyPolicy from "pages/PrivacyTerms";
 import Submission from "pages/CallForRenders/Submission";
 import Profile from "pages/Account/Profile";
 import PageDetail from "pages/Details/PageDetail";
+import CallForRenders from "pages/CallForRenders/page";
 
 const routes = [
   {
@@ -50,6 +51,11 @@ const routes = [
     name: "Submission offer",
     route: "/pages/CallForRenders/Submission",
     component: <Submission />,
+  },
+  {
+    name: "Call for tender",
+    route: "/pages/CallForRenders/page",
+    component: <CallForRenders />,
   },
   {
     name: "Profile",
