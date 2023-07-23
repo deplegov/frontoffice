@@ -4,8 +4,8 @@ import Submission from "pages/CallForTenders/Submission";
 import CallForTenders from "pages/CallForTenders/page";
 
 // Pages
-import AboutUs from "pages/LandingPages/AboutUs";
-import ContactUs from "pages/LandingPages/ContactUs";
+// import AboutUs from "pages/LandingPages/AboutUs";
+// import ContactUs from "pages/LandingPages/ContactUs";
 import SignIn from "pages/authentication/SignIn";
 import SignUp from "pages/authentication/SignUp";
 
@@ -31,21 +31,21 @@ const headerDropdown = [
           },
         ],
       },
-      {
-        name: "us",
-        collapse: [
-          {
-            name: "about us",
-            route: "/pages/LandingPages/AboutUs",
-            component: <AboutUs />,
-          },
-          {
-            name: "contact us",
-            route: "/pages/LandingPages/ContactUs",
-            component: <ContactUs />,
-          },
-        ],
-      },
+      // {
+      //   name: "us",
+      //   collapse: [
+      //     {
+      //       name: "about us",
+      //       route: "/pages/LandingPages/AboutUs",
+      //       component: <AboutUs />,
+      //     },
+      //     {
+      //       name: "contact us",
+      //       route: "/pages/LandingPages/ContactUs",
+      //       component: <ContactUs />,
+      //     },
+      //   ],
+      // },
       {
         name: "compte",
         collapse: [
