@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import React, { useState } from "react";
 
 // @mui material components
-import { Container, Grid, Select, MenuItem } from "@mui/material";
+import { Container, Grid, Select, MenuItem, Input, Button } from "@mui/material";
 
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
@@ -35,6 +35,7 @@ function DesignBlocks({ data, page }) {
   const [selectedCategory, setSelectedCategory] = useState(""); // État pour suivre la catégorie sélectionnée
   const [selectedStatus, setSelectedStatus] = useState(""); // État pour suivre la status sélectionnée
   const [selectedRegion, setSelectedRegion] = useState(""); // État pour suivre la region sélectionnée
+  const [selectedDate, setSelectedDate] = useState(null); // État pour suivre la region sélectionnée
 
   // Fonction pour gérer le changement de catégorie sélectionnée
   const handleCategoryChange = (event) => {
@@ -45,6 +46,19 @@ function DesignBlocks({ data, page }) {
   };
   const handleRegionChange = (event) => {
     setSelectedRegion(event.target.value);
+  };
+  const handleDateChange = (event) => {
+    setSelectedDate(event.target.value);
+  };
+  const handleFilterClick = () => {
+    // Perform filtering action here based on selected filters
+    // For example, fetch data from an API using selected filters
+    console.log("Filters:", {
+      selectedDate,
+      selectedCategory,
+      selectedStatus,
+      selectedRegion,
+    });
   };
   const categories = ["Informtaique", "Gestion"];
   const status = ["Urgent", "Normal"];
@@ -144,13 +158,25 @@ function DesignBlocks({ data, page }) {
             justifyContent="space-between" // Ajout de l'espacement entre les éléments
             sx={{ textAlign: "center", my: 6, mx: "auto", px: 0.75 }}
           >
-            {/* Barre de catégorisation et filtrage */}
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={3}>
               <MKTypography variant="body1" color="text">
-                Catégories
+                Date
+              </MKTypography>
+              <Input
+                type="date"
+                value={selectedDate}
+                onChange={handleDateChange}
+                // Other Input props and styling options as needed
+              />
+            </Grid>
+
+            {/* Barre de catégorisation et filtrage */}
+            <Grid item xs={12} sm={3}>
+              <MKTypography variant="body1" color="text">
+                Secteur
               </MKTypography>
               <Select value={selectedCategory} onChange={handleCategoryChange}>
-                <MenuItem value="">Toutes les catégories</MenuItem>
+                <MenuItem value="">Tous</MenuItem>
                 {categories.map((category) => (
                   <MenuItem key={category} value={category}>
                     {category}
@@ -159,12 +185,12 @@ function DesignBlocks({ data, page }) {
               </Select>
             </Grid>
 
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={3}>
               <MKTypography variant="body1" color="text">
                 Status
               </MKTypography>
               <Select value={selectedStatus} onChange={handleStatusChange}>
-                <MenuItem value="">Tous les statuts</MenuItem>
+                <MenuItem value="">Tous</MenuItem>
                 {status.map((stat) => (
                   <MenuItem key={stat} value={stat}>
                     {stat}
@@ -173,7 +199,7 @@ function DesignBlocks({ data, page }) {
               </Select>
             </Grid>
 
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={3}>
               <MKTypography variant="body1" color="text">
                 Région
               </MKTypography>
@@ -185,6 +211,13 @@ function DesignBlocks({ data, page }) {
                   </MenuItem>
                 ))}
               </Select>
+            </Grid>
+
+            {/* Filtrer Button */}
+            <Grid item xs={12} sm={12} sx={{ mt: 2 }}>
+              <Button variant="contained" color="black" onClick={handleFilterClick}>
+                Filtrer
+              </Button>
             </Grid>
           </Grid>
         </Container>
