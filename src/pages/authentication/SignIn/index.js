@@ -20,8 +20,42 @@ import headerDropdown from "headerDropdown";
 
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
+import { useState } from "react";
+import api from "utils/api";
 
 function SignInBasic() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const signin = () => {
+    setLoading(true);
+    fetch(api("users/login"), {
+      headers: { "Content-Type": "application/json" },
+      method: "POST",
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    }).then((res) => {
+      if (res.ok)
+        res.json().then((res) => {
+          setLoading(false);
+          sessionStorage.setItem("user", JSON.stringify(res.user));
+          window.location.href = "/presentation";
+        });
+      else {
+        res.json().then((res) => {
+          if (res) {
+            setMessage(res.message);
+            setLoading(false);
+          }
+        });
+      }
+    });
+  };
+
   return (
     <>
       <DefaultNavbar
@@ -75,13 +109,36 @@ function SignInBasic() {
               <MKBox pt={4} pb={3} px={3}>
                 <MKBox component="form" role="form">
                   <MKBox mb={2}>
-                    <MKInput type="text" label="Nom d'utilisateur" fullWidth />
+                    <MKInput
+                      type="text"
+                      label="Email"
+                      fullWidth
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
                   </MKBox>
                   <MKBox mb={2}>
-                    <MKInput type="password" label="Mot de passe" fullWidth />
+                    <MKInput
+                      type="password"
+                      label="Mot de passe"
+                      fullWidth
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
                   </MKBox>
+                  {message !== "" && (
+                    <MKBox mb={2}>
+                      <p style={{ color: "red" }}>{message}</p>
+                    </MKBox>
+                  )}
                   <MKBox mt={4} mb={1}>
-                    <MKButton variant="gradient" color="info" fullWidth>
+                    <MKButton
+                      variant="gradient"
+                      color="info"
+                      fullWidth
+                      disabled={loading}
+                      onClick={signin}
+                    >
                       se connecter
                     </MKButton>
                   </MKBox>
