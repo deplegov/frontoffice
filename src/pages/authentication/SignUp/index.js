@@ -44,11 +44,59 @@ import headerDropdown from "headerDropdown";
 
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
+import { useState } from "react";
+import api from "utils/api";
 
 function SignUpBasic() {
   // const [rememberMe, setRememberMe] = useState(false);
 
   // const handleSetRememberMe = () => setRememberMe(!rememberMe);
+  const [nom, setNom] = useState("");
+  const [prenom, setPrenom] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const signup = () => {
+    setLoading(true);
+    fetch(api("users"), {
+      headers: { "Content-Type": "application/json" },
+      method: "POST",
+      body: JSON.stringify({
+        nom,
+        prenom,
+        email,
+        password,
+        confirmPassword: password,
+        role: "User",
+        type: "User",
+      }),
+    }).then((res) => {
+      if (res.ok)
+        res.json().then(() => {
+          setLoading(false);
+          clearFields();
+          window.location.href = "/pages/authentication/sign-in";
+        });
+      else {
+        res.json().then((res) => {
+          if (res) {
+            setMessage(res.message + ", la création a échoué");
+            setLoading(false);
+          }
+        });
+      }
+    });
+  };
+
+  const clearFields = () => {
+    setNom("");
+    setPrenom("");
+    setEmail("");
+    setPassword("");
+    setMessage("");
+  };
 
   return (
     <>
@@ -103,57 +151,50 @@ function SignUpBasic() {
               <MKBox pt={4} pb={3} px={3}>
                 <MKBox component="form" role="form">
                   <MKBox mb={2} style={{ display: "flex", gap: "10px" }}>
-                    <MKInput type="text" label="Nom" />
-                    <MKInput type="text" label="Prénom" />
-                  </MKBox>
-
-                  <MKBox mb={2}>
                     <MKInput
-                      variant="standard"
-                      label="Date de naissance"
-                      InputLabelProps={{ shrink: true }}
-                      type="date"
-                      fullWidth
+                      type="text"
+                      label="Nom"
+                      onChange={(e) => setNom(e.target.value)}
+                      value={nom}
+                    />
+                    <MKInput
+                      type="text"
+                      label="Prénom"
+                      value={prenom}
+                      onChange={(e) => setPrenom(e.target.value)}
                     />
                   </MKBox>
-                  <MKBox
-                    mb={2}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "20%",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <label style={{ display: "flex", alignItems: "center" }}>
-                      <MKInput type="radio" name="gender" />
-                      <span style={{ marginLeft: "5px", fontSize: "14px", opacity: "7.1" }}>
-                        Homme
-                      </span>
-                    </label>
-                    <label style={{ display: "flex", alignItems: "center" }}>
-                      <MKInput type="radio" name="gender" />
-                      <span style={{ marginLeft: "5px", fontSize: "14px", opacity: "7.1" }}>
-                        Femme
-                      </span>
-                    </label>
-                  </MKBox>
-                  <MKBox mb={2} style={{ display: "flex", gap: "10px" }}>
-                    <MKInput type="text" label="Adresse" />
-                    <MKInput type="number" label="Code postal" />
-                  </MKBox>
-                  <MKBox mb={2} style={{ display: "flex", gap: "10px" }}>
-                    <MKInput type="email" label="Email" />
-                    <MKInput type="number" label="Numero de téléphone" />
+                  <MKBox mb={2}>
+                    <MKInput
+                      type="text"
+                      label="Email"
+                      fullWidth
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
                   </MKBox>
                   <MKBox mb={2}>
-                    <MKInput type="text" label="Nom d'utilisateur" fullWidth />
+                    <MKInput
+                      type="password"
+                      label="Mot de passe"
+                      fullWidth
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
                   </MKBox>
-                  <MKBox mb={2}>
-                    <MKInput type="password" label="Mot de passe" fullWidth />
-                  </MKBox>
+                  {message !== "" && (
+                    <MKBox mb={2}>
+                      <p style={{ color: "red" }}>{message}</p>
+                    </MKBox>
+                  )}
                   <MKBox mt={4} mb={1}>
-                    <MKButton variant="gradient" color="info" fullWidth>
+                    <MKButton
+                      variant="gradient"
+                      color="info"
+                      fullWidth
+                      disabled={loading}
+                      onClick={signup}
+                    >
                       S&apos;inscrire
                     </MKButton>
                   </MKBox>
