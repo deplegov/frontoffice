@@ -12,8 +12,14 @@ import CallForTenders from "pages/CallForTenders/page";
 import PageDetailCallForTenders from "pages/Details/PageDetailCallForTenders";
 import Parameter from "pages/Account/Parameter";
 import UpdateInformation from "pages/Account/UpdateInformation";
+import Logout from "pages/Logout";
 
 const routes = [
+  {
+    name: "Déconnection",
+    route: "/logout",
+    component: <Logout />,
+  },
   {
     name: "Appels d'offre",
     route: "/pages/landing-pages/about-us",
@@ -67,12 +73,12 @@ const routes = [
   },
   {
     name: "Details page",
-    route: "/pages/Details/PageDetail",
+    route: "/actualite/:id",
     component: <PageDetail />,
   },
   {
     name: "Details page call for tenders",
-    route: "/pages/Details/PageDetailCallForTenders",
+    route: "/pages/Details/PageDetailCallForTenders/:id",
     component: <PageDetailCallForTenders />,
   },
   {
