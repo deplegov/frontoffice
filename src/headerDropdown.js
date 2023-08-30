@@ -2,6 +2,7 @@
 import Icon from "@mui/material/Icon";
 import Submission from "pages/CallForTenders/Submission";
 import CallForTenders from "pages/CallForTenders/page";
+import Logout from "pages/Logout";
 
 // Pages
 // import AboutUs from "pages/LandingPages/AboutUs";
@@ -18,6 +19,8 @@ const headerDropdown = [
     collapse: [
       {
         name: "section",
+        logged: true,
+        noLog: true,
         collapse: [
           {
             name: "Appels d'offre",
@@ -48,6 +51,7 @@ const headerDropdown = [
       // },
       {
         name: "compte",
+        logged: false,
         collapse: [
           {
             name: "Se connecter",
@@ -58,6 +62,17 @@ const headerDropdown = [
             name: "S'inscrire",
             route: "/pages/authentication/sign-up",
             component: <SignUp />,
+          },
+        ],
+      },
+      {
+        name: "Compte",
+        logged: true,
+        collapse: [
+          {
+            name: "Déconnection",
+            route: "/logout",
+            component: <Logout />,
           },
         ],
       },

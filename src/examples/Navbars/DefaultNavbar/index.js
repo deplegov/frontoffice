@@ -54,6 +54,8 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
   const [mobileNavbar, setMobileNavbar] = useState(false);
   const [mobileView, setMobileView] = useState(false);
 
+  const isLogged = !(sessionStorage.getItem("user") === null);
+
   const openMobileNavbar = () => setMobileNavbar(!mobileNavbar);
 
   useEffect(() => {
@@ -127,51 +129,55 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
 
             return (
               <Grid key={gridKey} item xs={12 / columns} sx={{ position: "relative" }}>
-                {cols.map((col, index) => (
-                  <Fragment key={col.name}>
-                    <MKTypography
-                      display="block"
-                      variant="button"
-                      fontWeight="bold"
-                      textTransform="capitalize"
-                      py={1}
-                      px={0.5}
-                      mt={index !== 0 ? 2 : 0}
-                    >
-                      {col.name}
-                    </MKTypography>
-                    {col.collapse.map((item) => (
-                      <MKTypography
-                        key={item.name}
-                        component={item.route ? Link : MuiLink}
-                        to={item.route ? item.route : ""}
-                        href={item.href ? item.href : (e) => e.preventDefault()}
-                        target={item.href ? "_blank" : ""}
-                        rel={item.href ? "noreferrer" : "noreferrer"}
-                        minWidth="11.25rem"
-                        display="block"
-                        variant="button"
-                        color="text"
-                        textTransform="capitalize"
-                        fontWeight="regular"
-                        py={0.625}
-                        px={2}
-                        sx={({ palette: { grey, dark }, borders: { borderRadius } }) => ({
-                          borderRadius: borderRadius.md,
-                          cursor: "pointer",
-                          transition: "all 300ms linear",
+                {cols.map((col, index) => {
+                  // console.log(col.noLog);
+                  if (col.logged === isLogged || col.noLog)
+                    return (
+                      <Fragment key={col.name}>
+                        <MKTypography
+                          display="block"
+                          variant="button"
+                          fontWeight="bold"
+                          textTransform="capitalize"
+                          py={1}
+                          px={0.5}
+                          mt={index !== 0 ? 2 : 0}
+                        >
+                          {col.name}
+                        </MKTypography>
+                        {col.collapse.map((item) => (
+                          <MKTypography
+                            key={item.name}
+                            component={item.route ? Link : MuiLink}
+                            to={item.route ? item.route : ""}
+                            href={item.href ? item.href : (e) => e.preventDefault()}
+                            target={item.href ? "_blank" : ""}
+                            rel={item.href ? "noreferrer" : "noreferrer"}
+                            minWidth="11.25rem"
+                            display="block"
+                            variant="button"
+                            color="text"
+                            textTransform="capitalize"
+                            fontWeight="regular"
+                            py={0.625}
+                            px={2}
+                            sx={({ palette: { grey, dark }, borders: { borderRadius } }) => ({
+                              borderRadius: borderRadius.md,
+                              cursor: "pointer",
+                              transition: "all 300ms linear",
 
-                          "&:hover": {
-                            backgroundColor: grey[200],
-                            color: dark.main,
-                          },
-                        })}
-                      >
-                        {item.name}
-                      </MKTypography>
-                    ))}
-                  </Fragment>
-                ))}
+                              "&:hover": {
+                                backgroundColor: grey[200],
+                                color: dark.main,
+                              },
+                            })}
+                          >
+                            {item.name}
+                          </MKTypography>
+                        ))}
+                      </Fragment>
+                    );
+                })}
                 {key !== 0 && (
                   <Divider
                     key={dividerKey}
@@ -489,7 +495,8 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
             {renderNavbarItems}
           </MKBox>
           <MKBox ml={{ xs: "auto", lg: 0 }}>
-            {action &&
+            {isLogged &&
+              action &&
               (action.type === "internal" ? (
                 <MKButton
                   component={Link}
