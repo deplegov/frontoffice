@@ -141,18 +141,18 @@ function ExampleCard({ image, name, page, detail, profile, pro, ...rest }) {
             )
           )}
           <div style={{ fontSize: "15px", marginTop: "15px" }}>
-            <span style={{ marginRight: "15px" }}>
+            {/* <span style={{ marginRight: "15px" }}>
               <img width={"15px"} src={`${process.env.PUBLIC_URL}/reaction.svg`} alt="React icon" />{" "}
               1234
-            </span>
-            <span>
+            </span> */}
+            {/* <span>
               <img
                 width={"15px"}
                 src={`${process.env.PUBLIC_URL}/commentaire.svg`}
                 alt="Comment icon"
               />{" "}
               1234
-            </span>
+            </span> */}
           </div>
         </MKBox>
       ) : null}

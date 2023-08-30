@@ -26,7 +26,7 @@ export default [
         detail: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet diam nec justo finibus dictum.
         Vivamus vitae interdum quam, sit amet scelerisque purus. Nam ultricies sollicitudin gravida.
         Duis a efficitur sapien. Suspendisse ac laoreet purus.`,
-        route: "/pages/Details/PageDetail",
+        route: "/pages/Details/PageDetail/1",
       },
       // {
       //   name: "Actualité 1",

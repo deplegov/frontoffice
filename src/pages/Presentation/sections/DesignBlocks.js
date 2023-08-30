@@ -1,6 +1,6 @@
 // react-router-dom components
 import { Link } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // @mui material components
 import { Container, Grid, Select, MenuItem, Input, Button } from "@mui/material";
@@ -28,14 +28,29 @@ DesignBlocks.propTypes = {
       items: PropTypes.array.isRequired,
     })
   ).isRequired,
+  pagination: PropTypes.shape({
+    page: PropTypes.number.isRequired,
+    pageNumber: PropTypes.number.isRequired,
+    totalPages: PropTypes.number.isRequired,
+  }).isRequired,
+  changePage: PropTypes.func.isRequired,
   page: PropTypes.string.isRequired,
 };
 
-function DesignBlocks({ data, page }) {
+function DesignBlocks({ data, page, pagination, changePage }) {
   const [selectedCategory, setSelectedCategory] = useState(""); // État pour suivre la catégorie sélectionnée
   const [selectedStatus, setSelectedStatus] = useState(""); // État pour suivre la status sélectionnée
   const [selectedRegion, setSelectedRegion] = useState(""); // État pour suivre la region sélectionnée
-  const [selectedDate, setSelectedDate] = useState(null); // État pour suivre la region sélectionnée
+  const [selectedDate, setSelectedDate] = useState(""); // État pour suivre la region sélectionnée
+  const [paging, setPaging] = useState([]);
+
+  useEffect(() => {
+    if (page === "CallTender") {
+      const tmp = [];
+      for (let i = 1; i <= pagination.totalPages; i++) tmp.push(i);
+      setPaging(tmp);
+    }
+  }, []);
 
   // Fonction pour gérer le changement de catégorie sélectionnée
   const handleCategoryChange = (event) => {
@@ -95,25 +110,42 @@ function DesignBlocks({ data, page }) {
           ))}
         </Grid>
       </Grid>
-      <Container sx={{ height: "100%" }}>
-        <Grid container item justifyContent="center" xs={12} lg={6} mx="auto" height="100%">
-          <MKPagination>
-            <MKPagination item>
-              <Icon>keyboard_arrow_left</Icon>
+      {page === "CallTender" && (
+        <Container sx={{ height: "100%" }}>
+          <Grid container item justifyContent="center" xs={12} lg={6} mx="auto" height="100%">
+            <MKPagination>
+              <MKPagination
+                item
+                onClick={() => {
+                  changePage(pagination.page - 1);
+                }}
+              >
+                <Icon>keyboard_arrow_left</Icon>
+              </MKPagination>
+              {paging.map((p) => (
+                <MKPagination
+                  key={p}
+                  item
+                  active={p === pagination.page}
+                  onClick={() => {
+                    changePage(p);
+                  }}
+                >
+                  {p}
+                </MKPagination>
+              ))}
+              <MKPagination
+                item
+                onClick={() => {
+                  changePage(pagination.page + 1);
+                }}
+              >
+                <Icon>keyboard_arrow_right</Icon>
+              </MKPagination>
             </MKPagination>
-            <MKPagination item active>
-              1
-            </MKPagination>
-            <MKPagination item>2</MKPagination>
-            <MKPagination item>3</MKPagination>
-            <MKPagination item>4</MKPagination>
-            <MKPagination item>5</MKPagination>
-            <MKPagination item>
-              <Icon>keyboard_arrow_right</Icon>
-            </MKPagination>
-          </MKPagination>
-        </Grid>
-      </Container>
+          </Grid>
+        </Container>
+      )}
     </Grid>
   ));
 

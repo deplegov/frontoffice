@@ -13,7 +13,7 @@ import DefaultFooter from "examples/Footers/DefaultFooter";
 
 // Presentation page sections
 import DesignBlocks from "pages/Presentation/sections/DesignBlocks";
-import data from "pages/Presentation/sections/data/designBlocksData";
+// import data from "pages/Presentation/sections/data/designBlocksData";
 
 // Routes
 // import headerDropdown from "headerDropdown";
@@ -22,8 +22,46 @@ import footerRoutes from "footer.routes";
 // Images
 import bgImage from "assets/images/bg-presentation.jpg";
 import NavBarInitialDefault from "components/NavBarInitialDefault";
+import { useEffect, useState } from "react";
+import api from "utils/api";
 
 function Presentation() {
+  // eslint-disable-next-line no-unused-vars
+  const [actualites, setActualites] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getActualites();
+  }, []);
+
+  const getDesignBlockData = () => {
+    return [
+      {
+        title: "Actualités",
+        description: "Actualité du gouvernement",
+        items: actualites.map((actu) => {
+          return {
+            name: actu.TITRE,
+            detail: actu.DESCRIPTION,
+            route: `/actualite/${actu.ID}`,
+          };
+        }),
+      },
+    ];
+  };
+
+  const getActualites = () => {
+    setLoading(true);
+    fetch(api("articles")).then((res) => {
+      if (res.ok) {
+        return res.json().then((data) => {
+          setActualites(data);
+          setLoading(false);
+        });
+      }
+    });
+  };
+
   return (
     <>
       <NavBarInitialDefault />
@@ -76,7 +114,7 @@ function Presentation() {
           boxShadow: ({ boxShadows: { xxl } }) => xxl,
         }}
       >
-        <DesignBlocks data={data} page="Home" />
+        {!loading && <DesignBlocks data={getDesignBlockData()} page="Home" />}
       </Card>
       <MKBox pt={6} px={1} mt={6}>
         <DefaultFooter content={footerRoutes} />
