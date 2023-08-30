@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -26,146 +26,179 @@ import headerDropdown from "headerDropdown";
 
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
+import { MenuItem, Select } from "@mui/material";
+import api from "utils/api";
+import { Navigate } from "react-router-dom";
 
 function Submission() {
+  const isLogged = !(sessionStorage.getItem("user") === null);
+
+  const [message, setMessage] = useState("");
   const [entreprise, setEntreprise] = useState("");
-  const [montant, setMontant] = useState("");
-  const [description, setDescription] = useState("");
+  const [tenders, setTenders] = useState([]);
+  const [tender, setTender] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getTenders();
+  }, []);
+
+  const getTenders = (page = 1) => {
+    setLoading(true);
+    fetch(api(`tenders?page=${page}&pageNumber=1000`)).then((res) => {
+      if (res.ok) {
+        res.json().then((res) => {
+          setTenders(res.tenders);
+          setLoading(false);
+        });
+      }
+    });
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Here, you can handle the form submission logic, e.g., sending data to the server.
-    console.log("Entreprise:", entreprise);
-    console.log("Montant:", montant);
-    console.log("Description:", description);
-    // Reset form fields after submission
-    setEntreprise("");
-    setMontant("");
-    setDescription("");
+    fetch(api("soumissions"), {
+      headers: { "Content-Type": "application/json" },
+      method: "POST",
+      body: JSON.stringify({
+        society: {
+          name: entreprise,
+        },
+        dateSoumission: new Date(),
+        tender: tenders[tender],
+        status: 0,
+      }),
+    }).then((res) => {
+      if (res.ok)
+        res.json().then(() => {
+          setLoading(false);
+          clearFields();
+        });
+      else {
+        res.json().then((res) => {
+          if (res) {
+            setMessage(res.message);
+            setLoading(false);
+          }
+        });
+      }
+    });
   };
 
-  return (
-    <>
-      <DefaultNavbar
-        routes={headerDropdown}
-        action={{
-          type: "internal",
-          route: "/pages/Account/Profile",
-          label: "Mon compte",
-          color: "info",
-        }}
-        transparent
-        light
-      />
-      <MKBox
-        position="absolute"
-        top={0}
-        left={0}
-        zIndex={1}
-        width="100%"
-        minHeight="100vh"
-        sx={{
-          backgroundImage: ({ functions: { linearGradient, rgba }, palette: { gradients } }) =>
-            `${linearGradient(
-              rgba(gradients.dark.main, 0.6),
-              rgba(gradients.dark.state, 0.6)
-            )}, url(${bgImage})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      />
-      <MKBox px={1} width="100%" height="100vh" mx="auto" position="relative" zIndex={2}>
-        <Grid container spacing={1} justifyContent="center" alignItems="center" height="100%">
-          <Grid item xs={11} sm={9} md={5} lg={4} xl={3}>
-            <Card>
-              <MKBox
-                variant="gradient"
-                bgColor="info"
-                borderRadius="lg"
-                coloredShadow="info"
-                mx={2}
-                mt={-3}
-                p={2}
-                mb={1}
-                textAlign="center"
-              >
-                <MKTypography variant="h4" fontWeight="medium" color="white" mt={1}>
-                  Soumission d&apos;appel d&apos;Offre
-                </MKTypography>
-              </MKBox>
-              <MKBox pt={4} pb={3} px={3}>
-                <MKBox component="form" role="form">
-                  <MKBox mb={2}>
-                    <MKInput type="text" label="Nom de l'entreprise" fullWidth />
-                  </MKBox>
-                  <MKBox mb={2}>
-                    <MKInput
-                      variant="standard"
-                      label="Date limit de l'offre"
-                      InputLabelProps={{ shrink: true }}
-                      type="date"
-                      fullWidth
-                    />
-                  </MKBox>
+  const clearFields = () => {
+    // Reset form fields after submission
+    setEntreprise("");
+    setTender(0);
+  };
 
-                  <MKBox mb={2}>
-                    <MKInput label="Description..." multiline rows={5} fullWidth />
-                  </MKBox>
-                  <MKBox mb={2}>
+  if (!isLogged) return <Navigate to={"/pages/authentication/sign-in"} />;
+
+  if (!loading)
+    return (
+      <>
+        <DefaultNavbar
+          routes={headerDropdown}
+          action={{
+            type: "internal",
+            route: "/pages/Account/Profile",
+            label: "Mon compte",
+            color: "info",
+          }}
+          transparent
+          light
+        />
+        <MKBox
+          position="absolute"
+          top={0}
+          left={0}
+          zIndex={1}
+          width="100%"
+          minHeight="100vh"
+          sx={{
+            backgroundImage: ({ functions: { linearGradient, rgba }, palette: { gradients } }) =>
+              `${linearGradient(
+                rgba(gradients.dark.main, 0.6),
+                rgba(gradients.dark.state, 0.6)
+              )}, url(${bgImage})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+          }}
+        />
+        <MKBox px={1} width="100%" height="100vh" mx="auto" position="relative" zIndex={2}>
+          <Grid container spacing={1} justifyContent="center" alignItems="center" height="100%">
+            <Grid item xs={11} sm={9} md={5} lg={4} xl={3}>
+              <Card>
+                <MKBox
+                  variant="gradient"
+                  bgColor="info"
+                  borderRadius="lg"
+                  coloredShadow="info"
+                  mx={2}
+                  mt={-3}
+                  p={2}
+                  mb={1}
+                  textAlign="center"
+                >
+                  <MKTypography variant="h4" fontWeight="medium" color="white" mt={1}>
+                    Soumission d&apos;appel d&apos;Offre
+                  </MKTypography>
+                </MKBox>
+                <MKBox pt={4} pb={3} px={3}>
+                  <MKBox component="form" role="form">
+                    <MKBox mb={2}>
+                      <MKInput
+                        type="text"
+                        label="Nom de l'entreprise"
+                        fullWidth
+                        value={entreprise}
+                        onChange={(e) => setEntreprise(e.target.value)}
+                      />
+                    </MKBox>
+                    <Grid item xs={12} sm={3}>
+                      <MKTypography variant="body1" color="text">
+                        Appel d&apos;offre
+                      </MKTypography>
+                      <Select value={tender} onChange={(e) => setTender(e.target.value)}>
+                        {tenders.map((tender, i) => (
+                          <MenuItem key={i} value={i}>
+                            {tender.title}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </Grid>
+
+                    {/* <MKBox mb={2}>
                     <MKInput type="file" fullWidth />
-                  </MKBox>
-
-                  <MKBox mt={4} mb={1}>
-                    <MKButton variant="gradient" color="info" fullWidth>
-                      Valider
-                    </MKButton>
+                  </MKBox> */}
+                    {message !== "" && (
+                      <MKBox mb={2}>
+                        <p style={{ color: "red" }}>{message}</p>
+                      </MKBox>
+                    )}
+                    <MKBox mt={4} mb={1}>
+                      <MKButton
+                        variant="gradient"
+                        color="info"
+                        fullWidth
+                        onClick={handleSubmit}
+                        disabled={loading}
+                      >
+                        Valider
+                      </MKButton>
+                    </MKBox>
                   </MKBox>
                 </MKBox>
-              </MKBox>
-            </Card>
+              </Card>
+            </Grid>
           </Grid>
-        </Grid>
-      </MKBox>
-      <MKBox width="100%" position="absolute" zIndex={2} bottom="1.625rem">
-        <SimpleFooter light />
-      </MKBox>
-      <div>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="entreprise">Entreprise:</label>
-            <input
-              type="text"
-              id="entreprise"
-              value={entreprise}
-              onChange={(e) => setEntreprise(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="montant">Montant:</label>
-            <input
-              type="number"
-              id="montant"
-              value={montant}
-              onChange={(e) => setMontant(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="description">Description:</label>
-            <textarea
-              id="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              required
-            />
-          </div>
-          <button type="submit">Soumettre</button>
-        </form>
-      </div>
-    </>
-  );
+        </MKBox>
+        <MKBox width="100%" position="absolute" zIndex={2} bottom="1.625rem">
+          <SimpleFooter light />
+        </MKBox>
+      </>
+    );
+  else return <></>;
 }
 
 export default Submission;
