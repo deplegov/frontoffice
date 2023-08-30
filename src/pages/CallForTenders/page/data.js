@@ -7,7 +7,7 @@ export default [
         name: "Offre 1 : nom societe",
         profile: ["25 ans", "Master 2", "Sérieux"],
         detail: `Poste : Gestion et compta`,
-        mission: ["Mission 1", "Mission2"],
+        // mission: ["Mission 1", "Mission2"],
         route: "/pages/Details/PageDetailCallForTenders",
       },
       {
