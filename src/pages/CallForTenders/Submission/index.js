@@ -32,12 +32,17 @@ import { Navigate } from "react-router-dom";
 
 function Submission() {
   const isLogged = !(sessionStorage.getItem("user") === null);
+  const user = JSON.parse(sessionStorage.getItem("user"));
 
+  // eslint-disable-next-line no-unused-vars
   const [message, setMessage] = useState("");
   const [entreprise, setEntreprise] = useState("");
   const [tenders, setTenders] = useState([]);
+  // eslint-disable-next-line no-unused-vars
+  const [society, setSociety] = useState(null);
   const [tender, setTender] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [files, setFiles] = useState(null);
 
   useEffect(() => {
     getTenders();
@@ -49,6 +54,19 @@ function Submission() {
       if (res.ok) {
         res.json().then((res) => {
           setTenders(res.tenders);
+          getSocieties();
+        });
+      }
+    });
+  };
+
+  const getSocieties = () => {
+    setLoading(true);
+    fetch(api(`societies/${user.SOCIETE_ID}`)).then((res) => {
+      if (res.ok) {
+        res.json().then((res) => {
+          setSociety(res.society);
+          setEntreprise(res.society.name);
           setLoading(false);
         });
       }
@@ -57,17 +75,23 @@ function Submission() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    fetch(api("soumissions"), {
-      headers: { "Content-Type": "application/json" },
-      method: "POST",
-      body: JSON.stringify({
-        society: {
-          name: entreprise,
-        },
+    const formData = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      formData.append("files", files[i]);
+    }
+    formData.append(
+      "data",
+      JSON.stringify({
+        society,
         dateSoumission: new Date(),
         tender: tenders[tender],
         status: 0,
-      }),
+      })
+    );
+    fetch(api("soumissions"), {
+      // headers: { "Content-type": "multipart/form-data" },
+      method: "POST",
+      body: formData,
     }).then((res) => {
       if (res.ok)
         res.json().then(() => {
@@ -85,13 +109,14 @@ function Submission() {
     });
   };
 
+  // eslint-disable-next-line no-unused-vars
   const clearFields = () => {
     // Reset form fields after submission
-    setEntreprise("");
     setTender(0);
   };
 
   if (!isLogged) return <Navigate to={"/pages/authentication/sign-in"} />;
+  if (!user && !user.SOCIETE_ID) return <Navigate to={"/presentation"} />;
 
   if (!loading)
     return (
@@ -152,11 +177,11 @@ function Submission() {
                         label="Nom de l'entreprise"
                         fullWidth
                         value={entreprise}
-                        onChange={(e) => setEntreprise(e.target.value)}
+                        disabled
                       />
                     </MKBox>
-                    <Grid item xs={12} sm={3}>
-                      <MKTypography variant="body1" color="text">
+                    <Grid item>
+                      <MKTypography variant="body2" color="text">
                         Appel d&apos;offre
                       </MKTypography>
                       <Select value={tender} onChange={(e) => setTender(e.target.value)}>
@@ -167,10 +192,28 @@ function Submission() {
                         ))}
                       </Select>
                     </Grid>
+                    <Grid item>
+                      <MKTypography variant="body2" color="text">
+                        Fichiers
+                      </MKTypography>
+                      <input
+                        type="file"
+                        id="files"
+                        name="files"
+                        multiple
+                        onChange={(e) => setFiles(e.target.files)}
+                      />
+                    </Grid>
 
                     {/* <MKBox mb={2}>
-                    <MKInput type="file" fullWidth />
-                  </MKBox> */}
+                      <MKInput
+                        type="file"
+                        name="files"
+                        multiple
+                        fullWidth
+                        onChange={(e) => setFiles(e.target.files)}
+                      />
+                    </MKBox> */}
                     {message !== "" && (
                       <MKBox mb={2}>
                         <p style={{ color: "red" }}>{message}</p>
