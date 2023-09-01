@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
 // @mui material components
-import { Container, Grid, Select, MenuItem, Input, Button } from "@mui/material";
+import { Container, Grid, Input, Button } from "@mui/material";
 
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
@@ -38,9 +38,6 @@ DesignBlocks.propTypes = {
 };
 
 function DesignBlocks({ data, page, pagination, changePage }) {
-  const [selectedCategory, setSelectedCategory] = useState(""); // État pour suivre la catégorie sélectionnée
-  const [selectedStatus, setSelectedStatus] = useState(""); // État pour suivre la status sélectionnée
-  const [selectedRegion, setSelectedRegion] = useState(""); // État pour suivre la region sélectionnée
   const [selectedDate, setSelectedDate] = useState(""); // État pour suivre la region sélectionnée
   const [paging, setPaging] = useState([]);
 
@@ -52,16 +49,6 @@ function DesignBlocks({ data, page, pagination, changePage }) {
     }
   }, []);
 
-  // Fonction pour gérer le changement de catégorie sélectionnée
-  const handleCategoryChange = (event) => {
-    setSelectedCategory(event.target.value);
-  };
-  const handleStatusChange = (event) => {
-    setSelectedStatus(event.target.value);
-  };
-  const handleRegionChange = (event) => {
-    setSelectedRegion(event.target.value);
-  };
   const handleDateChange = (event) => {
     setSelectedDate(event.target.value);
   };
@@ -70,15 +57,8 @@ function DesignBlocks({ data, page, pagination, changePage }) {
     // For example, fetch data from an API using selected filters
     console.log("Filters:", {
       selectedDate,
-      selectedCategory,
-      selectedStatus,
-      selectedRegion,
     });
   };
-  const categories = ["Informtaique", "Gestion"];
-  const status = ["Urgent", "Normal"];
-  const regions = ["Region 1", "Region 2"];
-
   const renderData = data.map(({ title, description, items }) => (
     <Grid container spacing={3} sx={{ mb: 10 }} key={title}>
       <Grid item xs={12} lg={3}>
@@ -203,7 +183,7 @@ function DesignBlocks({ data, page, pagination, changePage }) {
             </Grid>
 
             {/* Barre de catégorisation et filtrage */}
-            <Grid item xs={12} sm={3}>
+            {/* <Grid item xs={12} sm={3}>
               <MKTypography variant="body1" color="text">
                 Secteur
               </MKTypography>
@@ -244,7 +224,7 @@ function DesignBlocks({ data, page, pagination, changePage }) {
                 ))}
               </Select>
             </Grid>
-
+ */}
             {/* Filtrer Button */}
             <Grid item xs={12} sm={12} sx={{ mt: 2 }}>
               <Button variant="contained" color="black" onClick={handleFilterClick}>

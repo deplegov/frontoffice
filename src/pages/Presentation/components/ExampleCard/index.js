@@ -93,7 +93,8 @@ function ExampleCard({ image, name, page, detail, profile, pro, ...rest }) {
             <>
               {detail && (
                 <MKTypography variant="button" fontWeight="regular" color="secondary">
-                  {detail}
+                  {detail.substring(0, 250)}
+                  {detail.length > 250 ? "..." : ""}
                 </MKTypography>
               )}
             </>
