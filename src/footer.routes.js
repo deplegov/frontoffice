@@ -8,7 +8,7 @@ const date = new Date().getFullYear();
 
 export default {
   brand: {
-    name: "Logo test",
+    name: "E-Gouvernance",
     image: logoCT,
     route: "/",
   },

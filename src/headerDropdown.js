@@ -70,7 +70,7 @@ const headerDropdown = [
         logged: true,
         collapse: [
           {
-            name: "Déconnection",
+            name: "Déconnexion",
             route: "/logout",
             component: <Logout />,
           },

@@ -16,7 +16,7 @@ import Logout from "pages/Logout";
 
 const routes = [
   {
-    name: "Déconnection",
+    name: "Déconnexion",
     route: "/logout",
     component: <Logout />,
   },
