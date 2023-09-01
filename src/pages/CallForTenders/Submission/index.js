@@ -62,7 +62,7 @@ function Submission() {
 
   const getSocieties = () => {
     setLoading(true);
-    fetch(api(`societies/${user.SOCIETE_ID}`)).then((res) => {
+    fetch(api(`societies/${user && user.SOCIETE_ID}`)).then((res) => {
       if (res.ok) {
         res.json().then((res) => {
           setSociety(res.society);
