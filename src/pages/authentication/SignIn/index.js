@@ -24,8 +24,8 @@ import { useState } from "react";
 import api from "utils/api";
 
 function SignInBasic() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("luc.rabe@gmail.com");
+  const [password, setPassword] = useState("mdpprom13");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
